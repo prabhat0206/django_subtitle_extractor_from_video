@@ -17,8 +17,8 @@ class UploadVideoView(APIView):
         
         video.name = storage.get_available_name(video)
 
-        storage.save(video.name, File(video))
-        extract_subtitles_and_save_to_s3.delay(storage.path(video.name), video.name)
+        storage.save(video.name.replace(" ", "_"), File(video))
+        extract_subtitles_and_save_to_s3.delay(storage.path(video.name.replace(" ", "_")), video.name.replace(" ", "_"))
         
         return Response({
             "meta": {
