@@ -18,7 +18,7 @@ const Home = () => {
         <div className="text-center">
           <button
             onClick={openAndClosePopUp}
-            className="p-2 pl-5 pr-5 bg-transparent border-2 border-[#CBFF5C] text-lg rounded-lg transition-colors duration-700 transform bg-[#CBFF5C] text-gray-100 "
+            className="p-2 pl-5 pr-5 bg-transparent border-2 border-[#CBFF5C] text-lg rounded-lg transition-colors duration-700 transform bg-[#CBFF5C] text-[#212D08] "
           >
             Upload Video
           </button>
