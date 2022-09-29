@@ -13,7 +13,7 @@ class CCExtractor:
     def __init__(self, video_name: str, path: str):
         self.video_name = video_name
         self.path = path
-        self.subtitle_name = self.video_name.split(".")[0] + ".srt"
+        self.subtitle_name = self.video_name.replace(" ", "_").split(".")[0] + ".srt"
         self.subtitle_path = f"{BASE_DIR}/temp/{self.subtitle_name}"
 
     def __run_extractor(self) -> bool:
