@@ -12,10 +12,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 @shared_task
 def extract_subtitles_and_save_to_s3(video_path: str, video_name: str):
-    print(video_path)
     extract_subtitles = CCExtractor(video_name, video_path).extract_time_text_from_srt()
     storage = FileSystemStorage()
-    print(video_path)
     path_object = Path(video_path)
     
     with path_object.open(mode='rb') as file:

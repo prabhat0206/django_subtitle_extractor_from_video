@@ -19,6 +19,7 @@ class CCExtractor:
     def __run_extractor(self) -> bool:
         print("Extracting subtitles from video...")
         try:
+            print(self.subtitle_path)
             os.system(f"ccextractor {self.path} -o {self.subtitle_path}")
             return True
         except Exception as e:
@@ -26,9 +27,17 @@ class CCExtractor:
             return False
 
     def extract_time_text_from_srt(self) -> list:
-        if self.__run_extractor():  
-            with open(self.subtitle_path, "r") as f:
-                data = f.read()
+        if self.__run_extractor():
+            try:
+                with open(self.subtitle_path, "r") as f:
+                    data = f.read()
+            except:
+                print("Error reading file Now try to find in root directory")
+                for file in os.listdir(BASE_DIR):
+                    if file.endswith(".srt"):
+                        with open(file, "r") as f:
+                            data = f.read()
+                        break
             data = data.split("\n\n")
             data = [i.split("\n") for i in data]
             output = []
@@ -45,9 +54,9 @@ class CCExtractor:
             raise Exception("Error while extracting subtitles from video")
 
     def delete_temp_files(self) -> bool:
-        try:
-            os.system(f"rm {self.subtitle_path}")
-            return True
-        except Exception as e:
-            print(e)
-            return False
+        os.system(f"rm {self.subtitle_path}")
+        for file in os.listdir(BASE_DIR):
+            if file.endswith(".srt"):
+                os.system(f"rm {BASE_DIR}/{file}")
+                break 
+        return True
